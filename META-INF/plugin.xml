@@ -1,0 +1,63 @@
+<idea-plugin version="2">
+  <name>Plugin name here</name>
+  <description>short description of the plugin</description>
+  <version>1.0</version>
+  <vendor>YourCompany</vendor>
+  <!--<idea-version since-build="8000"/>-->
+
+  <application-components>
+    <!-- Add your application components here -->
+      <!--<component>-->
+          <!--&lt;!&ndash; Component's implementation class &ndash;&gt;-->
+          <!--<implementation-class>ChefApplicationComponent</implementation-class>-->
+          <!--<interface-class>ChefApplicationComponent</interface-class>-->
+      <!--</component>-->
+      <component>
+          <!-- Component's implementation class -->
+          <implementation-class>myActions.ActionsPlugin</implementation-class>
+
+          <!-- Component's interface class -->
+          <interface-class>myActions.ActionsPlugin</interface-class>
+      </component>
+  </application-components>
+
+  <project-components>
+      <!--<component>-->
+          <!--&lt;!&ndash; Component's implementation class &ndash;&gt;-->
+          <!--<implementation-class>ChefProjectComponent</implementation-class>-->
+
+      <!--</component>-->
+  </project-components>
+
+  <actions>
+      <action id="ActionsSample.ActionsPlugin.GarbageCollection" class="myActions.GarbageCollectionAction" text="Collect _garbage" description="Run garbage collector">
+          <keyboard-shortcut first-keystroke="control alt G" second-keystroke="C" keymap="$default"/>
+          <mouse-shortcut keystroke="ctrl alt button2" keymap="$default"/>
+      </action>
+
+      <action id="Actions.ActionsPlugin.HelloWorld1" class="myActions.HelloWorldAction" text="Hello World" icon ="/general/add.png" description=""/>
+
+      <group id="Actions.ActionsPlugin.SampleGroup" text="Sample _Menu" description="Sample group">
+          <reference ref="ActionsSample.ActionsPlugin.GarbageCollection"/>
+          <separator/>
+          <reference ref="Actions.ActionsPlugin.HelloWorld1"/>
+
+          <!--adds this group to the main menu-->
+          <add-to-group group-id="MainMenu" anchor="last"/>
+          <!--adds this group to the main toolbar before the Help action-->
+          <add-to-group group-id="MainToolBar" anchor="before" relative-to-action="HelpTopics"/>
+      </group>
+
+      <!--the group below contains only the "Hello World" action defined above -->
+      <group>
+          <reference ref="Actions.ActionsPlugin.HelloWorld1"/>
+          <!--the group is added to the editor popup menu-->
+          <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="CutCopyPasteGroup"/>
+      </group>
+  </actions>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+      <psi.referenceContributor implementation="ChefReferenceContributor"/>
+  </extensions>
+</idea-plugin>
